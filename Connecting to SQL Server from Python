@@ -1,0 +1,44 @@
+## Download cx_Oracle for Python/ Mac OSX
+
+1. Download the following files from Oracle
+
+instantclient-basic-$VERSION-macosx-x64.zip
+instantclient-sdk-$VERSION-macosx-x64.zip
+
+2. Edit  ~/.bash_profile, add following:
+
+export ORACLE_HOME=/usr/local/share/oracle/instantclient_12_2
+export DYLD_LIBRARY_PATH=$ORACLE_HOME
+export LD_LIBRARY_PATH=$ORACLE_HOME
+export VERSION=12.1.0.2.0
+export ARCH=x86_64
+
+
+# actiavte ~/.zshrc
+source  ~/.bash_profile
+
+# Create a directory
+mkdir -p /usr/local/share/oracle
+
+# Unpack both files to that directory
+tar -xzf instantclient-basic-$VERSION-macosx-x64.zip
+tar -xzf instantclient-sdk-$VERSION-macosx-x64.zip
+
+# all files will now be located in /usr/local/share/oracle/instantclient_12_2.
+
+# create sym links
+
+ln -s libclntsh.dylib.11.1 libclntsh.dylib
+ln -s libocci.dylib.11.1 libocci.dylib
+
+
+## Problems
+1. Error: ORA-21561: OID generation failed
+   # 1. check your Mac's hostname.
+   $ hostname
+   new-host
+   # 2. Change the contents of /etc/hosts:
+   $ sudo cat /etc/hosts : 127.0.0.1 localhost
+   $ sudo vim /etc/hosts:  127.0.0.1 localhost new-host
+   $ sudo cat /etc/hosts : 127.0.0.1 localhost new-host
+
